@@ -31,6 +31,15 @@ jobs:
           ZIP_FILE=$(find . -maxdepth 1 -type f -name 'site*.zip' | head -n 1)
           test -n "$ZIP_FILE"
           unzip -q "$ZIP_FILE" -d _site
+
+          BRANDKIT_FILE=$(find . -maxdepth 1 -type f -iname '*Ttintico*Brand*Kit*.html' | head -n 1)
+          if [ -n "$BRANDKIT_FILE" ]; then
+            mkdir -p _site/ttintico-brand-kit
+            cp "$BRANDKIT_FILE" _site/ttintico-brand-kit/index.html
+          fi
+
+          echo 'zumestudio.com' > _site/CNAME
+
           python - <<'PY'
           from pathlib import Path
           p = Path('_site/griplies-check-into-fall/index.html')

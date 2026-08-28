@@ -42,56 +42,51 @@ jobs:
 
           python - <<'PY'
           from pathlib import Path
-          p = Path('_site/griplies-check-into-fall/index.html')
-          html = p.read_text(encoding='utf-8')
-          fix = r'''<style id="zume-print-fix">
+
+          global_print = r'''<style id="zume-global-print-standard">
           @media print{
-            @page{size:A4;margin:14mm 14mm 16mm 14mm !important}
-            html,body{margin:0 !important;padding:0 !important;background:#fff !important}
-            body{font-size:10.5pt !important}
+            @page{size:A4;margin:14mm 15mm 16mm 15mm !important}
+            html,body{
+              margin:0 !important;
+              padding:0 !important;
+              background:#fff !important;
+              color:#111 !important;
+              -webkit-print-color-adjust:exact !important;
+              print-color-adjust:exact !important;
+            }
+            *,*::before,*::after{box-sizing:border-box !important}
+            body{width:auto !important;min-width:0 !important}
             .shell{
               width:100% !important;
               max-width:none !important;
               margin:0 auto !important;
-              padding:0 4mm !important;
+              padding:4mm 5mm 5mm !important;
               box-sizing:border-box !important;
             }
-            .topbar{padding:4mm 0 5mm !important}
-            .hero{padding:5mm 0 5mm !important}
-            h1{font-size:34px !important;line-height:1.04 !important;margin:5mm 0 2mm !important}
-            .subtitle{font-size:11px !important;line-height:1.45 !important}
-            .brief{padding:6mm 0 4mm !important}
-            .brief-grid{gap:3mm !important}
-            .card,.panel,.msg{padding:4mm !important}
-            .card p,.card li,.panel li,.icon-item span{font-size:10px !important;line-height:1.38 !important}
-            .divider{margin:6mm 0 4mm !important}
-            .mb-head{margin-bottom:3mm !important;gap:2mm !important}
-            .mb-head h2{font-size:22px !important}
-            .mb-head p{font-size:10px !important;line-height:1.4 !important}
-            .mb-grid{
-              grid-template-columns:repeat(5,minmax(0,1fr)) !important;
-              grid-auto-rows:20mm !important;
-              gap:1.5mm !important;
+            .topbar{
+              position:static !important;
               margin:0 !important;
+              padding:3mm 0 5mm !important;
+              backdrop-filter:none !important;
+              box-shadow:none !important;
             }
-            .mb-grid > *{min-height:0 !important;height:20mm !important}
-            .mb-message{
-              grid-template-columns:repeat(5,minmax(0,1fr)) !important;
-              gap:1.5mm !important;
-              margin-top:3mm !important;
+            .lang-toggle,.pdf-btn,.admin-btn,.admin-overlay,.admin-panel{display:none !important}
+            .footer{
+              position:static !important;
+              margin:6mm 0 0 !important;
+              padding:4mm 0 0 !important;
+              box-shadow:none !important;
+              backdrop-filter:none !important;
+              overflow:visible !important;
             }
-            .msg{min-height:18mm !important;padding:2.5mm !important}
-            .msg svg{width:15px !important;height:15px !important}
-            .msg strong{font-size:8.5px !important;line-height:1.18 !important;margin-top:1.5mm !important}
-            .style-grid{gap:3mm !important;margin-top:3mm !important}
-            .products{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:1.5mm !important;margin-top:3mm !important}
-            .room{height:32mm !important;margin-top:2mm !important}
-            .palette{margin-top:2mm !important}
-            .swatch{height:9mm !important}
-            .footer{margin:5mm 0 0 !important;padding:3mm 0 0 !important}
-            .card,.panel,.msg,.mb-grid,.mb-message,.products,.style-grid{break-inside:avoid-page !important;page-break-inside:avoid !important}
+            img,svg,video,canvas{max-width:100% !important;height:auto}
+            .card,.panel,.msg,.product,.mb-img,.mb-grid,.mb-message,.products,.style-grid{
+              break-inside:avoid-page !important;
+              page-break-inside:avoid !important;
+            }
           }
           </style>'''
+
           mobile = r'''<style id="zume-mobile-header-fix">
           @media (max-width:820px){
             .topbar{
@@ -123,16 +118,36 @@ jobs:
             .lang-toggle button,.pdf-btn{min-width:42px !important;padding:8px 9px !important;font-size:11px !important;}
           }
           </style>'''
-          if 'id="zume-print-fix"' not in html:
-              html = html.replace('</head>', fix + '\n</head>', 1)
-          if 'id="zume-mobile-header-fix"' not in html:
-              html = html.replace('</head>', mobile + '\n</head>', 1)
-          p.write_text(html, encoding='utf-8')
-          PY
 
-          python - <<'PY'
-          from pathlib import Path
-          script = r'''<script id="zume-external-links-new-tab">
+          griplies_compact = r'''<style id="zume-griplies-print-compact">
+          @media print{
+            body{font-size:10.5pt !important}
+            .hero{padding:5mm 0 !important}
+            h1{font-size:34px !important;line-height:1.04 !important;margin:5mm 0 2mm !important}
+            .subtitle{font-size:11px !important;line-height:1.45 !important}
+            .brief{padding:6mm 0 4mm !important}
+            .brief-grid{gap:3mm !important}
+            .card,.panel,.msg{padding:4mm !important}
+            .card p,.card li,.panel li,.icon-item span{font-size:10px !important;line-height:1.38 !important}
+            .divider{margin:6mm 0 4mm !important}
+            .mb-head{margin-bottom:3mm !important;gap:2mm !important}
+            .mb-head h2{font-size:22px !important}
+            .mb-head p{font-size:10px !important;line-height:1.4 !important}
+            .mb-grid{grid-template-columns:repeat(5,minmax(0,1fr)) !important;grid-auto-rows:20mm !important;gap:1.5mm !important;margin:0 !important}
+            .mb-grid > *{min-height:0 !important;height:20mm !important}
+            .mb-message{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:1.5mm !important;margin-top:3mm !important}
+            .msg{min-height:18mm !important;padding:2.5mm !important}
+            .msg svg{width:15px !important;height:15px !important}
+            .msg strong{font-size:8.5px !important;line-height:1.18 !important;margin-top:1.5mm !important}
+            .style-grid{gap:3mm !important;margin-top:3mm !important}
+            .products{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:1.5mm !important;margin-top:3mm !important}
+            .room{height:32mm !important;margin-top:2mm !important}
+            .palette{margin-top:2mm !important}
+            .swatch{height:9mm !important}
+          }
+          </style>'''
+
+          external_links = r'''<script id="zume-external-links-new-tab">
           document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('a[href]').forEach(function (a) {
               try {
@@ -145,14 +160,18 @@ jobs:
             });
           });
           </script>'''
+
           for p in Path('_site').rglob('*.html'):
             html = p.read_text(encoding='utf-8')
+            if 'id="zume-global-print-standard"' not in html:
+              html = html.replace('</head>', global_print + '\n</head>', 1) if '</head>' in html else global_print + '\n' + html
+            if 'client-label' in html and 'id="zume-mobile-header-fix"' not in html:
+              html = html.replace('</head>', mobile + '\n</head>', 1) if '</head>' in html else mobile + '\n' + html
+            if 'griplies-check-into-fall' in str(p).lower() and 'id="zume-griplies-print-compact"' not in html:
+              html = html.replace('</head>', griplies_compact + '\n</head>', 1) if '</head>' in html else griplies_compact + '\n' + html
             if 'id="zume-external-links-new-tab"' not in html:
-              if '</body>' in html:
-                html = html.replace('</body>', script + '\n</body>', 1)
-              else:
-                html += '\n' + script
-              p.write_text(html, encoding='utf-8')
+              html = html.replace('</body>', external_links + '\n</body>', 1) if '</body>' in html else html + '\n' + external_links
+            p.write_text(html, encoding='utf-8')
           PY
 
       - name: Setup Pages

@@ -97,6 +97,31 @@ jobs:
           p.write_text(html, encoding='utf-8')
           PY
 
+          python - <<'PY'
+          from pathlib import Path
+          script = r'''<script id="zume-external-links-new-tab">
+          document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href]').forEach(function (a) {
+              try {
+                var u = new URL(a.getAttribute('href'), window.location.href);
+                if ((u.protocol === 'http:' || u.protocol === 'https:') && u.origin !== window.location.origin) {
+                  a.setAttribute('target', '_blank');
+                  a.setAttribute('rel', 'noopener noreferrer');
+                }
+              } catch (e) {}
+            });
+          });
+          </script>'''
+          for p in Path('_site').rglob('*.html'):
+            html = p.read_text(encoding='utf-8')
+            if 'id="zume-external-links-new-tab"' not in html:
+              if '</body>' in html:
+                html = html.replace('</body>', script + '\n</body>', 1)
+              else:
+                html += '\n' + script
+              p.write_text(html, encoding='utf-8')
+          PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

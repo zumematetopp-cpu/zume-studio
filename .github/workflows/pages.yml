@@ -29,8 +29,64 @@ jobs:
           rm -rf _site
           mkdir _site
           ZIP_FILE=$(find . -maxdepth 1 -type f -name 'site*.zip' | head -n 1)
-          echo "Using $ZIP_FILE"
+          test -n "$ZIP_FILE"
           unzip -q "$ZIP_FILE" -d _site
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('_site/griplies-check-into-fall/index.html')
+          html = p.read_text(encoding='utf-8')
+          fix = r'''<style id="zume-print-fix">
+          @media print{
+            @page{size:A4;margin:14mm 14mm 16mm 14mm !important}
+            html,body{margin:0 !important;padding:0 !important;background:#fff !important}
+            body{font-size:10.5pt !important}
+            .shell{
+              width:100% !important;
+              max-width:none !important;
+              margin:0 auto !important;
+              padding:0 4mm !important;
+              box-sizing:border-box !important;
+            }
+            .topbar{padding:4mm 0 5mm !important}
+            .hero{padding:5mm 0 5mm !important}
+            h1{font-size:34px !important;line-height:1.04 !important;margin:5mm 0 2mm !important}
+            .subtitle{font-size:11px !important;line-height:1.45 !important}
+            .brief{padding:6mm 0 4mm !important}
+            .brief-grid{gap:3mm !important}
+            .card,.panel,.msg{padding:4mm !important}
+            .card p,.card li,.panel li,.icon-item span{font-size:10px !important;line-height:1.38 !important}
+            .divider{margin:6mm 0 4mm !important}
+            .mb-head{margin-bottom:3mm !important;gap:2mm !important}
+            .mb-head h2{font-size:22px !important}
+            .mb-head p{font-size:10px !important;line-height:1.4 !important}
+            .mb-grid{
+              grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+              grid-auto-rows:20mm !important;
+              gap:1.5mm !important;
+              margin:0 !important;
+            }
+            .mb-grid > *{min-height:0 !important;height:20mm !important}
+            .mb-message{
+              grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+              gap:1.5mm !important;
+              margin-top:3mm !important;
+            }
+            .msg{min-height:18mm !important;padding:2.5mm !important}
+            .msg svg{width:15px !important;height:15px !important}
+            .msg strong{font-size:8.5px !important;line-height:1.18 !important;margin-top:1.5mm !important}
+            .style-grid{gap:3mm !important;margin-top:3mm !important}
+            .products{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:1.5mm !important;margin-top:3mm !important}
+            .room{height:32mm !important;margin-top:2mm !important}
+            .palette{margin-top:2mm !important}
+            .swatch{height:9mm !important}
+            .footer{margin:5mm 0 0 !important;padding:3mm 0 0 !important}
+            .card,.panel,.msg,.mb-grid,.mb-message,.products,.style-grid{break-inside:avoid-page !important;page-break-inside:avoid !important}
+          }
+          </style>'''
+          if 'id="zume-print-fix"' not in html:
+              html = html.replace('</head>', fix + '\n</head>', 1)
+          p.write_text(html, encoding='utf-8')
+          PY
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

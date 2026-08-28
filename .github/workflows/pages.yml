@@ -28,7 +28,9 @@ jobs:
         run: |
           rm -rf _site
           mkdir _site
-          unzip -q site.zip -d _site
+          ZIP_FILE=$(find . -maxdepth 1 -type f -name 'site*.zip' | head -n 1)
+          echo "Using $ZIP_FILE"
+          unzip -q "$ZIP_FILE" -d _site
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

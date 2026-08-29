@@ -92,39 +92,41 @@ jobs:
             .mb-img{aspect-ratio:4/3 !important;min-height:0 !important}
             .products{grid-template-columns:1fr 1fr !important}
           }
+          </style>'''
 
+          letter_large = r'''<style id="zume-letter-large-print-v3">
           @media print{
-            @page{size:A4;margin:14mm 15mm 16mm 15mm !important}
+            @page{size:Letter;margin:14mm 14mm 16mm 14mm !important}
             html,body{margin:0 !important;padding:0 !important;background:#fff !important;color:#111 !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
             *,*::before,*::after{box-sizing:border-box !important}
-            body{width:auto !important;min-width:0 !important;font-size:11.5pt !important;line-height:1.48 !important}
+            body{width:auto !important;min-width:0 !important;font-size:13pt !important;line-height:1.5 !important}
             .shell{width:100% !important;max-width:none !important;margin:0 auto !important;padding:4mm 5mm 5mm !important}
             .topbar{position:static !important;margin:0 !important;padding:3mm 0 5mm !important;backdrop-filter:none !important;box-shadow:none !important}
             .hero{padding:6mm 0 7mm !important}
-            h1{font-size:30pt !important;line-height:1.05 !important;margin:4mm 0 3mm !important}
-            .subtitle{font-size:13pt !important;line-height:1.5 !important}
-            .eyebrow,.byline,.note{font-size:9.5pt !important;line-height:1.4 !important}
-            .client-logo{font-size:17pt !important;letter-spacing:.24em !important}
-            .client-campaign-chip{font-size:9.5pt !important}
-            .brief-grid,.style-grid{grid-template-columns:1fr !important;gap:4mm !important}
-            .card,.panel,.msg{padding:4.5mm !important}
-            .card h2,.panel h3{font-size:10.5pt !important;line-height:1.3 !important}
-            .card p,.card li,.panel li,.icon-item span{font-size:11pt !important;line-height:1.5 !important}
-            .concept{font-size:19pt !important;line-height:1.15 !important}
-            .pill{font-size:9pt !important}
-            .mb-head{grid-template-columns:1fr !important;gap:2mm !important}
-            .mb-head h2{font-size:18pt !important}
-            .mb-head p{font-size:10.5pt !important;line-height:1.45 !important}
-            .mb-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;grid-template-rows:none !important;grid-auto-flow:row !important;grid-auto-rows:42mm !important;gap:2mm !important}
-            .mb-grid > *,.mb-grid .a,.mb-grid .b,.mb-grid .c,.mb-grid .d,.mb-grid .e,.mb-grid .f,.mb-grid .g,.mb-grid .h,.mb-grid .i,.mb-grid .j{grid-column:auto !important;grid-row:auto !important;height:42mm !important;min-height:0 !important}
-            .mb-message{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:2mm !important}
-            .msg strong{font-size:10pt !important;line-height:1.3 !important}
-            .products{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:2mm !important}
+            h1{font-size:34pt !important;line-height:1.04 !important;margin:4mm 0 3mm !important}
+            .subtitle{font-size:15pt !important;line-height:1.5 !important}
+            .eyebrow,.byline,.note{font-size:10.5pt !important;line-height:1.45 !important}
+            .client-logo{font-size:19pt !important;letter-spacing:.22em !important}
+            .client-campaign-chip{font-size:10.5pt !important}
+            .brief-grid,.style-grid{grid-template-columns:1fr !important;gap:4.5mm !important}
+            .card,.panel,.msg{padding:5mm !important}
+            .card h2,.panel h3{font-size:12pt !important;line-height:1.3 !important}
+            .card p,.card li,.panel li,.icon-item span{font-size:12.5pt !important;line-height:1.52 !important}
+            .concept{font-size:22pt !important;line-height:1.15 !important}
+            .pill{font-size:10.5pt !important}
+            .mb-head{grid-template-columns:1fr !important;gap:2.5mm !important}
+            .mb-head h2{font-size:20pt !important}
+            .mb-head p{font-size:12pt !important;line-height:1.48 !important}
+            .mb-grid{grid-template-columns:repeat(3,minmax(0,1fr)) !important;grid-template-rows:none !important;grid-auto-flow:row !important;grid-auto-rows:44mm !important;gap:2.5mm !important}
+            .mb-grid > *,.mb-grid .a,.mb-grid .b,.mb-grid .c,.mb-grid .d,.mb-grid .e,.mb-grid .f,.mb-grid .g,.mb-grid .h,.mb-grid .i,.mb-grid .j{grid-column:auto !important;grid-row:auto !important;height:44mm !important;min-height:0 !important}
+            .mb-message{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:2.5mm !important}
+            .msg strong{font-size:11.5pt !important;line-height:1.35 !important}
+            .products{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:2.5mm !important}
             .palette{grid-template-columns:repeat(5,minmax(0,1fr)) !important}
             .palette-labels{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
             .room{height:52mm !important}
             .lang-toggle,.pdf-btn,.admin-btn,.admin-overlay,.admin-panel{display:none !important}
-            .footer{position:static !important;margin:6mm 0 0 !important;padding:4mm 0 0 !important;box-shadow:none !important;backdrop-filter:none !important;overflow:visible !important}
+            .footer{position:static !important;margin:7mm 0 0 !important;padding:4mm 0 0 !important;box-shadow:none !important;backdrop-filter:none !important;overflow:visible !important}
             img,svg,video,canvas{max-width:100% !important;height:auto}
             .card,.panel,.msg,.product,.mb-img,.products,.style-grid{break-inside:avoid-page !important;page-break-inside:avoid !important}
           }
@@ -169,6 +171,8 @@ jobs:
             html = p.read_text(encoding='utf-8')
             if 'id="zume-global-responsive-v2"' not in html:
               html = html.replace('</head>', responsive + '\n</head>', 1) if '</head>' in html else responsive + '\n' + html
+            if 'id="zume-letter-large-print-v3"' not in html:
+              html = html.replace('</head>', letter_large + '\n</head>', 1) if '</head>' in html else letter_large + '\n' + html
             if 'client-label' in html and 'id="zume-mobile-client-position"' not in html:
               html = html.replace('</body>', mobile_script + '\n</body>', 1) if '</body>' in html else html + '\n' + mobile_script
             if 'id="zume-external-links-new-tab"' not in html:

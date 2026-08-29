@@ -141,6 +141,28 @@ jobs:
           }
           </style>'''
 
+          moodboard_tools_css = r'''<style id="zume-moodboard-tools-v1">
+          .mb-grid img,.moodboard img,[class*="moodboard" i] img,[id*="moodboard" i] img,[class*="mood-board" i] img,[id*="mood-board" i] img{cursor:zoom-in}
+          #zume-mb-lightbox{position:fixed;inset:0;z-index:2147483000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.94);padding:24px}
+          #zume-mb-lightbox.zume-open{display:flex}
+          #zume-mb-lightbox .zume-mb-stage{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+          #zume-mb-lightbox .zume-mb-full{display:block;max-width:min(94vw,1800px);max-height:82vh;width:auto;height:auto;object-fit:contain;box-shadow:0 18px 70px rgba(0,0,0,.45)}
+          #zume-mb-lightbox .zume-mb-controls{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}
+          #zume-mb-lightbox button{appearance:none;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:#fff;color:#111;padding:11px 16px;font:600 13px/1.1 Poppins,Arial,sans-serif;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+          #zume-mb-lightbox button.zume-mb-close{background:rgba(20,20,20,.9);color:#fff}
+          #zume-mb-lightbox .zume-mb-status{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);max-width:min(90vw,620px);padding:8px 12px;border-radius:999px;background:rgba(20,20,20,.88);color:#fff;font:500 12px/1.3 Poppins,Arial,sans-serif;text-align:center;opacity:0;pointer-events:none;transition:opacity .2s ease}
+          #zume-mb-lightbox .zume-mb-status.zume-show{opacity:1}
+          body.zume-mb-no-scroll{overflow:hidden !important}
+          @media(max-width:600px){
+            #zume-mb-lightbox{padding:12px}
+            #zume-mb-lightbox .zume-mb-full{max-width:96vw;max-height:78vh}
+            #zume-mb-lightbox .zume-mb-controls{bottom:14px;width:calc(100% - 24px)}
+            #zume-mb-lightbox button{padding:10px 13px;font-size:12px}
+            #zume-mb-lightbox .zume-mb-status{bottom:64px}
+          }
+          @media print{#zume-mb-lightbox{display:none !important}}
+          </style>'''
+
           mobile_script = r'''<script id="zume-mobile-client-position">
           document.addEventListener('DOMContentLoaded', function () {
             var label = document.querySelector('.client-label');
@@ -176,6 +198,155 @@ jobs:
           });
           </script>'''
 
+          moodboard_tools_script = r'''<script id="zume-moodboard-tools-script-v1">
+          document.addEventListener('DOMContentLoaded', function () {
+            var selectors = [
+              '.mb-grid img',
+              '.moodboard img',
+              '[class*="moodboard" i] img',
+              '[id*="moodboard" i] img',
+              '[class*="mood-board" i] img',
+              '[id*="mood-board" i] img'
+            ];
+            var images = Array.from(document.querySelectorAll(selectors.join(',')));
+
+            document.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function (heading) {
+              var text = (heading.textContent || '').trim().toLowerCase();
+              if (text.indexOf('moodboard') === -1 && text.indexOf('mood board') === -1) return;
+              var scope = heading.closest('section') || heading.parentElement;
+              if (!scope) return;
+              scope.querySelectorAll('img').forEach(function (img) { images.push(img); });
+            });
+
+            images = images.filter(function (img, index, arr) {
+              return img && img.src && arr.indexOf(img) === index;
+            });
+            if (!images.length) return;
+
+            var lightbox = document.createElement('div');
+            lightbox.id = 'zume-mb-lightbox';
+            lightbox.setAttribute('role', 'dialog');
+            lightbox.setAttribute('aria-modal', 'true');
+            lightbox.setAttribute('aria-label', 'Moodboard image');
+            lightbox.innerHTML = '<div class="zume-mb-stage"><img class="zume-mb-full" alt=""><div class="zume-mb-status" aria-live="polite"></div><div class="zume-mb-controls"><button type="button" class="zume-mb-download">Descargar JPG / Download JPG</button><button type="button" class="zume-mb-close">Cerrar / Close</button></div></div>';
+            document.body.appendChild(lightbox);
+
+            var full = lightbox.querySelector('.zume-mb-full');
+            var downloadBtn = lightbox.querySelector('.zume-mb-download');
+            var closeBtn = lightbox.querySelector('.zume-mb-close');
+            var status = lightbox.querySelector('.zume-mb-status');
+            var currentImage = null;
+            var currentIndex = 0;
+            var statusTimer = null;
+
+            function safeName(value) {
+              return (value || 'moodboard').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70) || 'moodboard';
+            }
+
+            function showStatus(message) {
+              clearTimeout(statusTimer);
+              status.textContent = message;
+              status.classList.add('zume-show');
+              statusTimer = setTimeout(function () { status.classList.remove('zume-show'); }, 2600);
+            }
+
+            function openImage(img) {
+              currentImage = img;
+              currentIndex = Math.max(0, images.indexOf(img));
+              full.src = img.currentSrc || img.src;
+              full.alt = img.alt || 'Moodboard';
+              lightbox.classList.add('zume-open');
+              document.body.classList.add('zume-mb-no-scroll');
+              closeBtn.focus({preventScroll:true});
+            }
+
+            function closeImage() {
+              lightbox.classList.remove('zume-open');
+              document.body.classList.remove('zume-mb-no-scroll');
+              full.removeAttribute('src');
+              if (currentImage) currentImage.focus({preventScroll:true});
+            }
+
+            function loadExportImage(src) {
+              return new Promise(function (resolve, reject) {
+                var out = new Image();
+                var absolute;
+                try { absolute = new URL(src, window.location.href); } catch (e) { absolute = null; }
+                if (absolute && absolute.origin !== window.location.origin && !src.startsWith('data:') && !src.startsWith('blob:')) {
+                  out.crossOrigin = 'anonymous';
+                }
+                out.onload = function () { resolve(out); };
+                out.onerror = reject;
+                out.src = src;
+              });
+            }
+
+            async function downloadCurrentAsJpg() {
+              if (!currentImage) return;
+              downloadBtn.disabled = true;
+              downloadBtn.textContent = 'Preparando JPG…';
+              try {
+                var src = currentImage.currentSrc || currentImage.src;
+                var source = await loadExportImage(src);
+                var w = source.naturalWidth || source.width;
+                var h = source.naturalHeight || source.height;
+                if (!w || !h) throw new Error('invalid image size');
+                var canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                var ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, w, h);
+                ctx.drawImage(source, 0, 0, w, h);
+                var blob = await new Promise(function (resolve, reject) {
+                  try {
+                    canvas.toBlob(function (b) { b ? resolve(b) : reject(new Error('jpg export failed')); }, 'image/jpeg', 0.95);
+                  } catch (e) { reject(e); }
+                });
+                var a = document.createElement('a');
+                var label = currentImage.alt || currentImage.getAttribute('data-title') || ('moodboard-' + String(currentIndex + 1).padStart(2, '0'));
+                a.download = safeName(label) + '.jpg';
+                a.href = URL.createObjectURL(blob);
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(function () { URL.revokeObjectURL(a.href); }, 1500);
+                showStatus('JPG descargado / JPG downloaded');
+              } catch (e) {
+                showStatus('Esta imagen externa no permite conversión directa a JPG.');
+              } finally {
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = 'Descargar JPG / Download JPG';
+              }
+            }
+
+            images.forEach(function (img) {
+              img.tabIndex = img.tabIndex >= 0 ? img.tabIndex : 0;
+              img.setAttribute('role', 'button');
+              img.setAttribute('aria-label', (img.alt ? img.alt + '. ' : '') + 'Ampliar imagen / Enlarge image');
+              img.addEventListener('click', function (event) {
+                if (event.target.closest && event.target.closest('a[href]')) event.preventDefault();
+                openImage(img);
+              });
+              img.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  openImage(img);
+                }
+              });
+            });
+
+            downloadBtn.addEventListener('click', downloadCurrentAsJpg);
+            closeBtn.addEventListener('click', closeImage);
+            lightbox.addEventListener('click', function (event) {
+              if (event.target === lightbox || event.target.classList.contains('zume-mb-stage')) closeImage();
+            });
+            document.addEventListener('keydown', function (event) {
+              if (event.key === 'Escape' && lightbox.classList.contains('zume-open')) closeImage();
+            });
+          });
+          </script>'''
+
           for p in Path('_site').rglob('*.html'):
             html = p.read_text(encoding='utf-8')
             html = re.sub(r'<link\b[^>]*\brel=["\'][^"\']*icon[^"\']*["\'][^>]*>\s*', '', html, flags=re.I)
@@ -184,10 +355,14 @@ jobs:
               html = html.replace('</head>', responsive + '\n</head>', 1) if '</head>' in html else responsive + '\n' + html
             if 'id="zume-letter-large-print-v3"' not in html:
               html = html.replace('</head>', letter_large + '\n</head>', 1) if '</head>' in html else letter_large + '\n' + html
+            if 'id="zume-moodboard-tools-v1"' not in html:
+              html = html.replace('</head>', moodboard_tools_css + '\n</head>', 1) if '</head>' in html else moodboard_tools_css + '\n' + html
             if 'client-label' in html and 'id="zume-mobile-client-position"' not in html:
               html = html.replace('</body>', mobile_script + '\n</body>', 1) if '</body>' in html else html + '\n' + mobile_script
             if 'id="zume-external-links-new-tab"' not in html:
               html = html.replace('</body>', external_links + '\n</body>', 1) if '</body>' in html else html + '\n' + external_links
+            if 'id="zume-moodboard-tools-script-v1"' not in html:
+              html = html.replace('</body>', moodboard_tools_script + '\n</body>', 1) if '</body>' in html else html + '\n' + moodboard_tools_script
             p.write_text(html, encoding='utf-8')
           PY
 

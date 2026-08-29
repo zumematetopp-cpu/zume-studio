@@ -49,6 +49,8 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
+          favicon = r'''<link id="zume-global-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='10'%20fill='%23111111'/%3E%3Cpath%20d='M17%2018H47L19%2046H47'%20fill='none'%20stroke='%23ffffff'%20stroke-width='6'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">'''
+
           responsive = r'''<style id="zume-global-responsive-v2">
           body{font-size:16px;line-height:1.55}
           .subtitle{font-size:clamp(16px,2vw,20px);line-height:1.55}
@@ -175,6 +177,8 @@ jobs:
 
           for p in Path('_site').rglob('*.html'):
             html = p.read_text(encoding='utf-8')
+            if 'id="zume-global-favicon"' not in html:
+              html = html.replace('</head>', favicon + '\n</head>', 1) if '</head>' in html else favicon + '\n' + html
             if 'id="zume-global-responsive-v2"' not in html:
               html = html.replace('</head>', responsive + '\n</head>', 1) if '</head>' in html else responsive + '\n' + html
             if 'id="zume-letter-large-print-v3"' not in html:

@@ -38,6 +38,12 @@ jobs:
             cp "$BRANDKIT_FILE" _site/ttintico-brand-kit/index.html
           fi
 
+          CAMPAIGN_FILE=$(find . -maxdepth 1 -type f \( -iname '*Ttintico*Valledupar*Cultura*Cafetera*.html' -o -iname '*Ttintico*Campana*Valledupar*.html' \) | head -n 1)
+          if [ -n "$CAMPAIGN_FILE" ]; then
+            mkdir -p _site/ttintico-campana-valledupar
+            cp "$CAMPAIGN_FILE" _site/ttintico-campana-valledupar/index.html
+          fi
+
           echo 'zumestudio.com' > _site/CNAME
 
           python - <<'PY'

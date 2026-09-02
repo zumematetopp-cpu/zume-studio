@@ -1,4 +1,4 @@
-name: Add ZUME Extra Pages
+name: Add ZUME Project Pages
 
 on:
   workflow_run:
@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy-extra:
+  deploy-projects:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment:
       name: github-pages
@@ -34,15 +34,24 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           run-id: ${{ github.event.workflow_run.id }}
 
-      - name: Rebuild published site with extra pages
+      - name: Add project folders
         run: |
           rm -rf _site
           mkdir -p _site
           tar -xf _artifact/artifact.tar -C _site
 
-          if [ -f checklist-ochoas/index.html ]; then
+          if [ -d projects ]; then
+            for project_dir in projects/*; do
+              [ -d "$project_dir" ] || continue
+              project_name=$(basename "$project_dir")
+              mkdir -p "_site/$project_name"
+              cp -R "$project_dir"/. "_site/$project_name"/
+            done
+          fi
+
+          if [ -d checklist-ochoas ]; then
             mkdir -p _site/checklist-ochoas
-            cp checklist-ochoas/index.html _site/checklist-ochoas/index.html
+            cp -R checklist-ochoas/. _site/checklist-ochoas/
           fi
 
           echo 'zumestudio.com' > _site/CNAME

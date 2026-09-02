@@ -1,0 +1,60 @@
+name: Add ZUME Extra Pages
+
+on:
+  workflow_run:
+    workflows: ["Deploy ZUME Studio"]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy-extra:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Download published Pages artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: _artifact
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Rebuild published site with extra pages
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          tar -xf _artifact/artifact.tar -C _site
+
+          if [ -f checklist-ochoas/index.html ]; then
+            mkdir -p _site/checklist-ochoas
+            cp checklist-ochoas/index.html _site/checklist-ochoas/index.html
+          fi
+
+          echo 'zumestudio.com' > _site/CNAME
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload updated Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./_site
+
+      - name: Deploy updated Pages site
+        id: deployment
+        uses: actions/deploy-pages@v4

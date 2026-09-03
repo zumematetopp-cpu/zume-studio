@@ -54,6 +54,11 @@ jobs:
             cp -R checklist-ochoas/. _site/checklist-ochoas/
           fi
 
+          if [ -d planificador ]; then
+            mkdir -p _site/planificador
+            cp -R planificador/. _site/planificador/
+          fi
+
           echo 'zumestudio.com' > _site/CNAME
 
       - name: Setup Pages

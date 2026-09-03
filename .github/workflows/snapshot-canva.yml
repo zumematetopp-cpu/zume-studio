@@ -23,7 +23,21 @@ jobs:
             [ -z "$path" ] && continue
             mkdir -p "$(dirname "$path")"
             echo "Downloading $path"
-            curl -L --fail --retry 3 --retry-delay 2 "$url" -o "$path"
+            if ! curl -L --fail --retry 2 --retry-delay 1 "$url" -o "$path"; then
+              fallback=$(python - "$url" <<'PY'
+import sys, urllib.parse
+u=sys.argv[1]
+q=urllib.parse.parse_qs(urllib.parse.urlparse(u).query)
+print(q.get('fallback',[''])[0])
+PY
+)
+              if [ -z "$fallback" ]; then
+                echo "No fallback URL for $path"
+                exit 1
+              fi
+              echo "Using Canva fallback for $path"
+              curl -L --fail --retry 3 --retry-delay 2 "$fallback" -o "$path"
+            fi
           done < planificador/canva-snapshot-urls.txt
       - name: Commit stable preview files
         shell: bash

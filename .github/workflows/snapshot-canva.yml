@@ -3,7 +3,9 @@ on:
   push:
     branches: [main]
     paths:
-      - 'planificador/canva-snapshot-urls.txt'
+      - 'planificador/data-posts.js'
+      - 'planificador/data-stories-a.js'
+      - 'planificador/data-stories-b.js'
       - '.github/workflows/snapshot-canva.yml'
   workflow_dispatch:
 
@@ -15,33 +17,85 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download Canva previews into the site
+
+      - name: Build download list from current Canva previews
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          rows=[]
+          post_text=Path('planificador/data-posts.js').read_text(encoding='utf-8')
+          post_urls=re.findall(r'"preview":"(https://media\.canva\.com[^"\\]+)"',post_text)
+          for i,url in enumerate(post_urls,1):
+              rows.append((f'planificador/assets/ochoas/canva/post-{i:02d}.png',url))
+
+          story_text=(Path('planificador/data-stories-a.js').read_text(encoding='utf-8')+'\n'+Path('planificador/data-stories-b.js').read_text(encoding='utf-8'))
+          story_urls=re.findall(r'"preview":"(https://media\.canva\.com[^"\\]+)"',story_text)
+          for i,url in enumerate(story_urls,1):
+              rows.append((f'planificador/assets/ochoas/canva/story-{i:02d}.png',url))
+
+          if len(post_urls)!=6 or len(story_urls)!=13:
+              raise SystemExit(f'Expected 6 posts and 13 stories; found {len(post_urls)} and {len(story_urls)}')
+
+          Path('/tmp/canva-previews.tsv').write_text('\n'.join(f'{p}\t{u}' for p,u in rows),encoding='utf-8')
+          PY
+
+      - name: Download stable copies
         shell: bash
         run: |
           set -euo pipefail
-          while IFS='|' read -r path url; do
-            [ -z "$path" ] && continue
+          while IFS=$'\t' read -r path url; do
             mkdir -p "$(dirname "$path")"
-            echo "Downloading $path"
+            echo "Saving $path"
             if ! curl -L --fail --retry 2 --retry-delay 1 "$url" -o "$path"; then
               fallback=$(python -c 'import sys,urllib.parse as u; q=u.parse_qs(u.urlparse(sys.argv[1]).query); print(q.get("fallback",[""])[0])' "$url")
-              if [ -z "$fallback" ]; then
-                echo "No fallback URL for $path"
-                exit 1
-              fi
-              echo "Using Canva fallback for $path"
-              curl -L --fail --retry 3 --retry-delay 2 "$fallback" -o "$path"
+              test -n "$fallback"
+              curl -L --fail --retry 3 --retry-delay 1 "$fallback" -o "$path"
             fi
-          done < planificador/canva-snapshot-urls.txt
-      - name: Commit stable preview files
+            test -s "$path"
+          done < /tmp/canva-previews.tsv
+
+      - name: Point planner to local Canva snapshots
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          p=Path('planificador/data-posts.js')
+          t=p.read_text(encoding='utf-8')
+          n=0
+          def repl_post(m):
+              global n
+              n+=1
+              return f'"preview":"assets/ochoas/canva/post-{n:02d}.png"'
+          t=re.sub(r'"preview":"https://media\.canva\.com[^"\\]+"',repl_post,t)
+          if n!=6: raise SystemExit(f'Expected 6 post replacements, got {n}')
+          p.write_text(t,encoding='utf-8')
+
+          n=0
+          for fn in ['planificador/data-stories-a.js','planificador/data-stories-b.js']:
+              p=Path(fn); t=p.read_text(encoding='utf-8')
+              def repl_story(m):
+                  global n
+                  n+=1
+                  return f'"preview":"assets/ochoas/canva/story-{n:02d}.png"'
+              t=re.sub(r'"preview":"https://media\.canva\.com[^"\\]+"',repl_story,t)
+              p.write_text(t,encoding='utf-8')
+          if n!=13: raise SystemExit(f'Expected 13 story replacements, got {n}')
+          PY
+
+      - name: Commit permanent previews
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add planificador/assets/ochoas/canva
+          git add planificador/assets/ochoas/canva planificador/data-posts.js planificador/data-stories-a.js planificador/data-stories-b.js
           if git diff --cached --quiet; then
-            echo "No asset changes"
+            echo "No changes"
             exit 0
           fi
-          git commit -m "Store stable Ochoas Canva previews"
+          git commit -m "Make Ochoas Canva previews permanent"
           git push

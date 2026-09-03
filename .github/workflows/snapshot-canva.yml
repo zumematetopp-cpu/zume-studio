@@ -24,13 +24,7 @@ jobs:
             mkdir -p "$(dirname "$path")"
             echo "Downloading $path"
             if ! curl -L --fail --retry 2 --retry-delay 1 "$url" -o "$path"; then
-              fallback=$(python - "$url" <<'PY'
-import sys, urllib.parse
-u=sys.argv[1]
-q=urllib.parse.parse_qs(urllib.parse.urlparse(u).query)
-print(q.get('fallback',[''])[0])
-PY
-)
+              fallback=$(python -c 'import sys,urllib.parse as u; q=u.parse_qs(u.urlparse(sys.argv[1]).query); print(q.get("fallback",[""])[0])' "$url")
               if [ -z "$fallback" ]; then
                 echo "No fallback URL for $path"
                 exit 1

@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'planificador/canva-snapshot-urls.txt'
+      - '.github/workflows/snapshot-canva.yml'
   workflow_dispatch:
 
 permissions:

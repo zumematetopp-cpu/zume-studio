@@ -54,4 +54,6 @@
     if(s){s.textContent='Guardado ✓';setTimeout(()=>s.textContent='',1800);}
     renderSources(DATA[currentBrand]);
   }
+
+  if(role==='admin'&&currentBrand){render();}
 })();

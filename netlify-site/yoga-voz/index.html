@@ -20,10 +20,10 @@
 <div class="shell">
 <header><div class="brand">ZUME <small>YOGA · PRÁCTICA</small></div><div class="source">Guion original · Clase 1 Ana<br/>275 indicaciones</div></header>
 <div class="head"><div class="eyebrow">Clase 1 · Entrenamiento por voz</div><h1>Tu voz mueve el cuerpo.</h1><p class="lead">Habla como si estuvieras dando tu clase. El muñeco articula las instrucciones del guion, desde Tadasana hasta la relajación.</p></div>
-<div class="layout"><section class="workspace"><div class="card mic-panel" style="margin-top:17px"><h2 class="mic-title">Control de voz</h2><p class="mic-sub">Para dictar toda la clase: activa la voz y acepta el permiso del micrófono. Chrome mostrará aquí lo que reconoce.</p><div class="voice-actions"><button class="btn primary" id="mic-btn">🎙 Activar voz</button><button class="btn" id="reset-btn">Volver al inicio</button><button class="btn" id="test-mic-btn">Comprobar micrófono</button></div><div aria-live="polite" class="mic-indicator"><span class="mic-led" id="mic-led"></span><span id="mic-status">Voz desactivada</span></div><div aria-live="polite" class="feedback" id="feedback">Micrófono apagado. Pulsa «Activar voz» y da permiso a Chrome.</div><div class="voice-hint">Prueba decir: <strong>«mentón al pecho»</strong>, <strong>«brazos en cruz»</strong> o <strong>«siguiente»</strong>.</div>
+<div class="layout"><section class="workspace"><div class="card mic-panel" style="margin-top:17px"><h2 class="mic-title">Control de voz</h2><p class="mic-sub">Activa la voz y habla. La app muestra lo que escucha o el error exacto.</p><div class="voice-actions"><button class="btn primary" id="mic-btn">🎙 Activar voz</button><button class="btn" id="reset-btn">Volver al inicio</button><button class="btn" id="test-mic-btn">Comprobar micrófono</button></div><div aria-live="polite" class="mic-indicator"><span class="mic-led" id="mic-led"></span><span id="mic-status">Voz desactivada</span></div><div aria-live="polite" class="feedback" id="feedback">Micrófono apagado. Pulsa «Activar voz» y da permiso a Chrome.</div><div class="voice-hint">Prueba decir: <strong>«mentón al pecho»</strong>, <strong>«brazos en cruz»</strong> o <strong>«siguiente»</strong>.</div>
 <div class="demo"><input aria-label="Probar una orden escrita" id="demo-text" placeholder="O prueba: «mentón al pecho»"/><button class="btn" id="demo-btn">Probar</button></div></div><div class="card visual-wrap"><div class="stage-line"><span class="tag"><span class="dot" id="listening-dot"></span><span id="stage-label">Sintonía</span></span><span class="counter" id="step-counter">01 / 275</span></div>
 <div class="canvas"><svg aria-label="Muñeco articulado realizando una postura de yoga" id="doll" role="img" viewbox="0 0 480 430" xmlns="http://www.w3.org/2000/svg"><defs><lineargradient id="torsoGrad" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#dec8a8"></stop><stop offset="1" stop-color="#bd9d72"></stop></lineargradient><filter id="shadow"><fegaussianblur stddeviation="5"></fegaussianblur></filter></defs><ellipse cx="240" cy="399" fill="#d8cab7" filter="url(#shadow)" opacity=".55" rx="130" ry="10"></ellipse><path d="M 38 394 Q 240 387 442 394" fill="none" stroke="#c6ac87" stroke-width="2"></path><path d="M 33 400 L 447 400" stroke="#e2d5c1" stroke-width="2"></path><g id="figure"><polygon fill="url(#torsoGrad)" id="torso" stroke="#ac8c65" stroke-linejoin="round" stroke-width="1.5"></polygon><g id="limbs" stroke="#bd9c70" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"><path fill="none" id="legL"></path><path fill="none" id="legR"></path><path fill="none" id="armL"></path><path fill="none" id="armR"></path></g><g fill="#d7bea0" id="joints" stroke="#aa875d" stroke-width="2"></g><line id="neckline" stroke="#bd9c70" stroke-linecap="round" stroke-width="14"></line><circle fill="#e0c9a9" id="head" r="25" stroke="#ab8b64" stroke-width="2"></circle><g id="face"><circle fill="#816952" id="eyeL" r="1.8"></circle><circle fill="#816952" id="eyeR" r="1.8"></circle><path fill="none" id="mouth" stroke="#a27e5d" stroke-linecap="round" stroke-width="1.6"></path></g><g fill="#d9bfa0" stroke="#a98659" stroke-width="1.2"><circle id="handL" r="9"></circle><circle id="handR" r="9"></circle><ellipse id="footL" rx="12" ry="6"></ellipse><ellipse id="footR" rx="12" ry="6"></ellipse></g></g></svg><span class="anim-caption">Visualización esquemática · no anatómica</span></div><div class="pose-name" id="pose-label">Tadasana</div><div class="script-card script-inline"><div class="section-hd"><h2>Guion de clase</h2><span>Orden original</span></div><select aria-label="Seleccionar etapa de la clase" class="section-select" id="stage-select"></select><div class="eyebrow" id="instruction-num">INDICACIÓN 1</div><div class="instruction" id="instruction"></div><div class="nav"><button class="btn" id="prev-btn">← Anterior</button><button class="btn" id="next-btn">Siguiente →</button></div><input aria-label="Posición del guion" class="step-track" id="slider" max="275" min="1" type="range" value="1"/><div class="list-title">Próximas indicaciones</div><div class="upcoming" id="upcoming"></div></div></div></section></div>
-<footer>Guion «Clase 1 Ana» (275 indicaciones) · Control por voz: Chrome en HTTPS con permiso de micrófono. El dictado depende de la compatibilidad de tu dispositivo.</footer>
+<footer>Guion «Clase 1 Ana» (275 indicaciones) · Control por voz: Chrome con micrófono permitido; se muestra diagnóstico si falla. El dictado depende de la compatibilidad de tu dispositivo.</footer>
 </div>
 <script>
 const SCRIPT = ["Sintonía — 2 min", "Empieza en TADASANA, Pies abiertos del ancho de caderas.", "Hacemos consciente nuestra respiración.", "No vamos a dejar que ningún elemento nos incomode, nos ponemos muy cómodas.", "Con los ojos cerrados manos al corazón", "Imaginamos una luz blanca muy brillante que sale de las MANOS al corazón y viaja por nuestra sangre, recorriendo todo el cuerpo.", "Visualizamos como entra el prana y llega a todos nuestros órganos.", "Al Inhalar la luz blanca es más potente", "Exhalamos sin forzar la respiración", "Repetimos x3", "En la próxima Inhalación entonamos la sílaba HAM y recordamos hacer énfasis en la garganta.", "Namasté", "Kriyas — 19 min", "Kriya de cervicales", "Recordar crecer y — Hombros y brazos relajados", "PONEMOS EL LÍMITE", "Empieza con Pies abiertos del ancho de caderas.", "Creamos límite, los hacemos consciente y relajamos el brazo a los lados del cuerpo.", "Crecemos como si quisiéramos que la coronilla toque el cielo y respiramos a nuestro ritmo.", "Inhalando mentón al cielo", "Exhalando mentón al pecho", "Terminamos alineando el cuello", "Próxima exhalación Oreja derecha a Hombro derecho.", "Inhalando volvemos al centro", "Exhalando Oreja Izquierda a Hombro Izquierdo", "—", "Terminamos alineando el cuello", "Próxima exhalación el mentón hacia la derecha del cuerpo", "Inhalando volvemos al centro", "llevamos el mentón hacia la izquierda del cuerpo", "Próxima exhalación Oreja derecha al CENTRO DEL PECHO", "Inhalando volvemos al centro", "exhalando Oreja izquierda al CENTRO DEL PECHO", "Próxima exhalación Mentón al cielo hacia el lado derecho", "Inhalando volvemos al centro", "Mentón al cielo hacia el lado izquierdo", "Próxima exhalación, llevamos el mentón hacia adelante.", "Inhalamos - Mentón hacia atrás.", "Terminamos alineando el cuello", "", "Kriya de hombros", "Respiramos a nuestro ritmo, relajamos los brazos y los hombros.", "CRECE como si quisieras tocar el cielo", "con la coronilla de la cabeza, respiramos a nuestro ritmo.", "Exhalando todo el aire, Hombros hacia arriba, hacia las orejas", "Inhalando hombros abajo.", "Exhalando ambos hombros hacia adelante, juntándose al pecho.", "Inhalando abrimos el pecho y hombros atrás juntando omoplatos.", "Círculos hacia adelante con los hombros", "Círculos hacia atrás con los hombros", "Relajamos hombros, y sacudimos brazos y manos.", "Terminamos alineando toda la columna.", "Kriya de MUÑECAS", "Con brazos relajados ABRIMOS y cerramos puños", "Con brazos abajo relajados - Abrimos y cerramos puños", "Con brazos al frente ABRIMOS Y CERRAMOS PUÑOS y hacemos círculos con muñecas", "Brazos a la vertical abrimos y cerramos y hacemos círculos.", "brazos en cruz hacemos círculos.", "Relajamos brazos y sacudimos.", "Kriya de codos", "Volvemos a abrir los brazos en cruz", "Vamos a DIBUJAR círculos con el antebrazo.", "al flexionar los codos los llevamos cerca de la axila", "e inhalamos", "exhalamos cuando los alejamos del tronco.", "Terminamos y sacudimos otra vez las manos y relajamos los brazos.", "Kriya de Columna Seguimos con pies separados del ancho de las caderas", "Flexionamos las rodillas - Inclinamos lentamente el tronco hacia ADELANTE - Apoyamos manos sobre los muslos - dedos hacia afuera. - RESPIRAMOS, Siempre por nariz, y a nuestro ritmo.", "Exhalando llevamos mentón al pecho - abdomen adentro - coxis adentro.", "Inhalando llevamos mentón arriba sin flexionar mucho cervicales - abdomen fuera - coxis al cielo.", "Nos incorporamos vertebra a vertebra y…", "Llevamos las manos arriba, entrelazamos los dedos.", "Exhalando Flexionamos la columna hacia la derecha", "Inhalando volvemos al centro.", "Exhalando vamos al otro lado", "Suavemente bajamos los brazos…", "Lentamente volvemos a flexionar las rodillas - Inclinamos lentamente el tronco - Apoyamos manos sobre los muslos - dedos hacia afuera. - RESPIRAMOS, Siempre por nariz, y a nuestro ritmo.", "En la próxima exhalación llevamos todo el peso del cuerpo al lado IZQUIERDA y cuando INHALAMOS llevamos la mano DERECHA hacia arriba mirando como sube y moviendo suavemente el cuello hacia arriba sin forzar las cervicales.", "si hay alguna molestia en el cuello, subimos la mano y miramos hasta donde nos resulte cómodo.", "EXHALANDO Bajamos la mano lentamente y lentamente miramos otra vez hacia abajo,", "En la próxima INHALACIÓN llevamos la mano hacia arriba NUEVAMENTE.", "X3", "Final - Lentamente nos incorporamos vertebra por vertebra hasta quedar erguidos nuevamente. Respiramos.", "Kriya de Rodillas, Cadera, tobillos", "Volvemos a, Flexionamos las rodillas - Inclinamos lentamente el tronco - Apoyamos manos sobre los muslos - dedos hacia afuera. - RESPIRAMOS, Siempre por nariz, y a nuestro ritmo.", "Hacemos círculos con las rodillas hacia adentro", "Hacemos círculos con las rodillas hacia afuera.", "Nos incorporamos, vertebra por vertebra hasta quedar con la columna bien derechita, y llevamos las manos a la cintura.", "Hacemos círculos hacia la derecha con LAS CADERAS.", "Hacemos círculos a la izquierda con las caderas.", "Ahora llevamos la pierna derecha hacia adelante y hacemos círculos con el tobillo DERECHO hacia adentro.", "DERECHO hacia afuera.", "Círculos con el tobillo IZQUIERDO hacia adentro", "IZQUIERDO hacia afuera.", "Relajamos. y nos preparamos para el NAMASKAR", "AYUR SURYA NAMASKAR", "SALUDO AL SOL", "Volvemos a TADASANA pero esta vez vamos a poner los pies juntos.", "Si sentimos que perdemos el equilibrio abrimos un poco los pies.", "Lo importante es que sintamos bien esta postura.", "Los brazos relajados, y CON LAS PALMAS MIRANDO hacia nuestro cuerpo vamos a EXHALAR", "Inhalamos y llevamos los hombros un poquito hacia atrás, Abrimos el pecho, y giramos las palmas hacia adelante.", "Repito x 3", "y en la próxima inhalación juntamos las manos frente al pecho, en Pronam Mudra", "Inhalando llevamos las manos juntas por la línea central del cuerpo. hacia arriba como queriendo tocar el sol.", "INHALAMOS SUAVEMENTE y EXHALAMOS", "nos ponemos en puntas de pie, como para poder alcanzarlo.", "Para no perder el equilibrio podemos mirar un punto fijo, esto ayuda.", "Respiramos y en la próxima exhalación", "flexionamos la columna hacia adelante, sin forzar las rodillas, y bajamos las manos hasta tocar el suelo con las palmas.", "Inhalamos y nos incorporamos vertebra a vertebra, y", "llevamos las manos frente al pecho, en pronam mudra, y subimos los brazos llevando las manos juntas por la línea central del cuerpo hacia arriba.", "Apretamos los glúteos, y hacemos una retroflexión de columna con los brazos extendidos hacia atrás.", "Nuevamente bajamos flexionando la columna, y llevamos las manos al suelo, pero esta vez más atrás, a la altura de los talones.", "SIN mover la pierna izquierda, que va a quedar a 90 grados, LLEVAMOS hacia atrás el PIE DERECHO, estirando la rodilla.", "En la próxima exhalación llevamos hacia atrás el otro pie.", "como si estuviéramos haciendo una plancha", "Sostenemos el peso del cuerpo, sin que las rodillas toquen la tierra.", "Ahora apoyamos las rodillas, el pecho y el mentón simultaneamente sobre el suelo, para quedar en 8 apoyos.", "Cuando exhalemos nos deslizamos hacia adelante,", "Inhalamos estirando los brazos y haciendo una retroflexión de columna levantamos suavemente el pecho y llevamos el mentón hacia arriba.", "SIN movernos de donde estamos, Apoyamos los dedos de los pies, y elevamos la cadera, haciendo una flexión manteniendo columna recta y estirada, entramos la cabeza, alineando con la columna, para quedar en carpa. Respiramos, y…", "Exhalando llevamos el pie derecho debajo del mentón y apoyamos en la colchoneta, dejando la rodilla a 90 grados,", "Inhalando miramos al frente,", "y llevamos el otro pie delante y elevamos las caderas,", "hasta tener rectas las rodillas.", "Pasamos ambas manos detrás de las piernas y llevamos la frente a las rodillas.", "Podemos abrazarnos las piernas para ayudarnos.", "Exhalamos y llevamos las palmas de las manos a la colchoneta, a la altura de los pies.", "Inhalando, volvemos a pronam mudra, con las manos frente al pecho, palma con palma.", "e inhalamos llevando las manos juntas por la línea central del cuerpo hacia arriba.", "y hacemos una suave retroflexión con la columna, llevamos el mentón hacia arriba.", "y Exhalando volvemos a llevar la columna al centro, dejando los brazos hacia arriba y nos ponemos de puntas de pie.", "Miramos un punto fijo para conseguir mejor equilibrio.", "Respiramos y estiramos bien la columna como queriendo alcanzar el sol.", "bajamos y nos ponemos nuevamente en pranam mudra", "Volvemos a tadasana con los pies juntos y las palmas de las manos hacia adelante.", "Y Nuevamente…..EMPEZAMOS x 3 veces", "Postura preparatoria — 1. Vamos al piso", "Vamos bien al frente de la colchoneta.", "Separamos las piernas al ancho de las caderas.", "Flexionamos las rodillas e inclinamos el tronco hasta apoyar las dos manos en la colchoneta.", "Apoyar despacio las rodillas, como en la postura de cuatro apoyos.", "Caminamos hacia atrás con las mano, llevando los glúteos hacia abajo, como si fuéramos a sentarnos sobre los talones.", "Llevamos los pies lentamente hacia la derecha.", "y llevamos las piernas hacia adelante.", "2. Balancines", "Ahora doblamos las rodillas.", "y pasamos las manos por detrás de ellas.", "Vamos a hacer 3 balancines.", "Quien tenga dificultad puede ayudarse con la pared, enseguida les explico como es.", "3. Entrar en la postura.", "Entonces empujamos suavemente nuestro cuerpo, hacia atrás y hacia adelante,", "Cuando apoyemos los hombros en la colchoneta llevamos las manos a la parte de atrás de la cadera y…", "Acomodamos los codos, los juntamos atrás.", "Llevamos las rodillas hacia la frente", "Apretamos los glúteos y llevamos las piernas hacia la vertical", "Flexionamos la rodilla derecha, y dejamos que el talón descanse sobre el glúteo.", "respiramos y en la próxima exhalación cambiamos de rodilla.", "4. Mantener la postura", "Les voy a pedir que cierren los ojos si pueden, y dejen que el aire entre y salga solo y que noten lo que sienten.", "Así estimulamos la tiroides y empezamos a flexibilizar la columna y la sangre va a empezar a circular mejor por todo nuestro cuerpo.", "x 3 veces", "5. Salir de la postura", "Ahora vamos a extender las dos piernas hacia arriba y flexionar las rodillas hacia la cabeza.", "Inhalamos profundo y, al exhalar, bajamos la espalda despacio sobre la colchoneta.", "Postura madre", "Seguimos, Acostadas sobre la colchoneta, decúbito dorsal, con piernas extendidas y brazos extendidos a lo largo del cuerpo.", "Aseguramos las lumbares bien apoyadas en el suelo y las cervicales estiradas, relajamos la mandíbula.", "Si alguien tiene problemas de hipertiroidismo, úlceras o hipertensión por favor abstenerse de hacer esta postura. Ya les indicaré que hacemos.", "Vamos a hacer 3 balancines.", "Respiramos a nuestro ritmo, no forzamos ni retenemos la respiración.", "Quien tenga dificultad puede ayudarse con la pared, enseguida les explico como es.", "3. Entrar en la postura.", "Entonces empujamos suavemente nuestro cuerpo, hacia atrás y hacia adelante,", "Cuando apoyemos los hombros en la colchoneta llevamos las manos a la parte de atrás de la cadera y…", "Acomodamos los codos, los juntamos atrás.", "Llevamos las rodillas hacia la frente", "Apretamos los glúteos y llevamos las piernas hacia la vertical.", "4. Mantener la postura", "Cuando estemos cómodos, vamos a hacer una inhalación, llevamos la respiración suavemente hacia el abdomen y exhalamos suavemente. Repite x", "Así estimulamos la tiroides y flexibilizamos la columna, la sangre va a empezar a circular mejor por todo nuestro cuerpo.", "x 3 veces", "5. Salir de la postura", "Respiramos suavemente y en la próxima EXHALACIÓN flexionamos las rodillas llevándolas hacia la frente.", "Inhalamos apoyando los brazos en el suelo.", "Tratemos que la cabeza no se despegue del suelo", "Exhalamos y apretando el abdomen bajamos vertebra a vertebra sobre la colchoneta.", "Cuando los glúteos toquen el suelo, apoyamos un pie cerca del cuerpo después el otro pie.", "Extendemos una pierna a la vez.", "Respiramos y en la próxima exhalación, llevamos el mentón hacia el hombro derecho.", "Dejamos que la cabeza caiga por su propio peso hacia el lado, no la forzamos.", "Inhalamos al centro y al exhalar llevamos la cabeza hacia el otro lado.", "Postura Complementaria", "Seguimos, Acostadas sobre la colchoneta, decúbito dorsal, con piernas extendidas y brazos extendidos a lo largo del cuerpo.", "Aseguramos las lumbares bien apoyadas en el suelo y las cervicales estiradas, relajamos la mandíbula.", "Si alguien tiene problemas de hipertiroidismo, úlceras o hipertensión por favor abstenerse de hacer esta postura. Ya les indicaré que hacemos.", "Vamos a hacer 3 balancines.", "Respiramos a nuestro ritmo, no forzamos ni retenemos la respiración.", "Quien tenga dificultad puede ayudarse con la pared, enseguida les explico como es.", "3. Entrar en la postura.", "Entonces empujamos suavemente nuestro cuerpo, hacia atrás y hacia adelante,", "Cuando apoyemos los hombros en la colchoneta llevamos las manos a la parte de atrás de la cadera y…", "Acomodamos los codos, los juntamos atrás.", "Llevamos las rodillas hacia la frente", "Apretamos los glúteos y llevamos las piernas hacia la vertical.", "Respiramos y abrimos ambas piernas hacia los lados todo lo que podemos,", "Cuando estamos cómodos con las piernas abiertas bajamos los brazos a la colchoneta y los dejamos apoyados en el suelo.", "4. Mantener la postura", "Respiramos, llevando la respiración hacia el abdomen y exhalamos suavemente. Repite x3", "Así vamos a estirar los aductores mientras mejoramos la circulación de la sangre por todo nuestro cuerpo", "x 3 veces", "5. Salir de la postura", "Respiramos suavemente y en la próxima EXHALACIÓN cerramos las piernas, y flexionamos las rodillas llevándolas hacia la frente.", "Inhalamos apoyando los brazos en el suelo.", "Tratemos que la cabeza no se despegue del suelo", "Exhalamos y apretando el abdomen bajamos vertebra a vertebra sobre la colchoneta.", "Cuando los glúteos toquen el suelo, apoyamos un pie cerca del cuerpo después el otro pie.", "Extendemos una pierna a la vez.", "Respiramos y en la próxima exhalación, llevamos el mentón hacia el hombro derecho.", "Dejamos que la cabeza caiga por su propio peso hacia el lado, no la forzamos.", "Inhalamos al centro y al exhalar llevamos la cabeza hacia el otro lado.", "Postura Intermedia", "Vamos a ubicarnos decúbito ventral sobre la colchoneta, y nos acomodamos en 4 apoyos.", "Si alguien tiene problemas como artrosis en rodillas o muñecas por favor abstenerse de hacer esta postura,", "Separamos las rodillas del ancho de caderas.", "Las manos las ubicamos bien debajo de los hombros, del mismo ancho de nuestros hombros.", "Nos fijamos en tener todos los dedos de las manos extendidos y mirando hacia adelante.", "Y nos aseguramos de apoyar bien las palmas de las manos en la colchoneta.", "Los pies deben estar con el empeine apoyado hacia la tierra, y nos fijamos que estén separados del ancho de las caderas.", "Alineamos toda la columna vertebral, fijándonos que esté paralela al suelo.", "No dejemos caer la cabeza, dejamos la cabeza alineada con la columna.", "Si sientes molestias en las muñecas te puedes apoyar en los nudillos.", "Respira profundamente, y recorre con el aire todo tu cuerpo.", "Desarmamos", "Exhalando, llevamos los glúteos hacia atrás, hasta sentarnos en los talones,", "Ubicamos las manos en el suelo, por debajo de los hombros,", "y nos incorporamos vertebra a vertebra.", "Llevamos las piernas adelante", "flexionamos las rodillas", "y nos ponemos de pie", "Postura Preparatoria de la contrapostura", "Ahora ponemos los pies del ancho de las caderas", "Sentimos nuestra respiración,", "Relajamos los brazos y las manos y llevamos los hombros hacia atrás, como entrando los omoplatos y abriendo bien el pecho.", "Llevamos el mentón hacia arriba sin forzar las cervicales.", "en la próxima INHALACIÓN VAMOS A ABRIR EL PECHO", "llevando la respiración hacia el abdomen,", "dejamos que recorra todo nuestro cuerpo y exhalamos.", "Alineamos la columna, vertebra a vertebra, y miramos hacia el frente.", "x3", "Contrapostura", "Parados en la parte de adelante de la colchoneta", "ponemos los pies juntos,", "Si pierdes el equilibrio puedes abrir los pies del ancho de las caderas.", "Relaja los brazos y lleva los hombros un poquito hacia atrás como entrando los omoplatos.", "Los brazos quedan relajados al lado del cuerpo.", "deja las palmas de las manos mirando hacia el cuerpo.", "respiramos y en la próxima EXHALACIÓN llevamos las manos a", "PRONAM MUDRA, es decir, unimos las palmas de las manos frente al pecho.", "Ahora inhalamos llevando las palmas de las manos por la línea central del cuerpo hacia arriba.", "nos ponemos en puntas de pie y estiramos la columna como queriendo tocar el cielo con las puntas de los dedos.", "bajamos los talones, y", "abrimos las palmas de las manos del ancho de los hombros.", "Inhalamos llevando la respiración hasta el abdomen y exhalamos suavemente.", "unimos las palmas y bajamos por dentro de la línea del cuerpo hacia el pecho.", "Repetimos x3", "soltamos y relajamos brazos.", "Relajación", "Nos acomodamos para la relajación.", "Acostados sobre la colchoneta respiramos a nuestro ritmo y exhalando", "Llevamos la rodilla derecha hacia el pecho, la tomamos con nuestra mano derecha.", "Inhalamos y al exhalar, flexionamos la rodilla izquierda y la llevamos hacia el pecho y la agarramos con la mano izquierda.", "respiramos, siempre por nariz, a nuestro ritmo y en la próxima exhalación llevamos ambas rodillas hacia nuestro abdomen y al mismo tiempo elevamos la cabeza del suelo, llevando la frente hacia adelante.", "hacemos unos balancines hacia los lados, sentimos nuestra columna, lo hacemos las veces que necesitemos."];
@@ -171,106 +171,164 @@ function handleSpeech(raw){const s=norm(raw);if(!s)return;
  else notify('No identifiqué un movimiento. Probá una frase del guion o decí «siguiente».',raw)
 }
 $('demo-btn').addEventListener('click',()=>{const input=$('demo-text');if(input.value.trim())handleSpeech(input.value.trim())});$('demo-text').addEventListener('keydown',e=>{if(e.key==='Enter')$('demo-btn').click()});
-let voiceRestartTimer=null, micWaveTimer=null, currentMicStream=null, voiceIsStarting=false;
+let voiceRestartTimer=null, micWaveTimer=null, voiceIsStarting=false, voiceStartTimeout=null;
 function setStatus(message,state='off'){
  const led=$('mic-led'),label=$('mic-status');
- if(!led||!label)return;
  led.classList.remove('on','error');
  if(state==='on')led.classList.add('on');if(state==='error')led.classList.add('error');
  label.textContent=message;
 }
 function micUI(){
- const b=$('mic-btn');if(!b)return;
- b.classList.toggle('active',isListening);
- b.textContent=(isListening||restartVoice)?'■ Detener voz':'🎙 Activar voz';
+ const b=$('mic-btn');
+ b.classList.toggle('active',isListening||voiceIsStarting);
+ b.textContent=(isListening||restartVoice||voiceIsStarting)?'■ Detener voz':'🎙 Activar voz';
  $('listening-dot').style.background=isListening?'#37a178':'#baa278';
  $('listening-dot').classList.toggle('spinning',isListening);
 }
 function stopMic(){
  restartVoice=false;isListening=false;voiceIsStarting=false;
- clearTimeout(voiceRestartTimer);clearInterval(micWaveTimer);
- const old=recognition;recognition=null;if(old)try{old.abort()}catch(e){}
- if(currentMicStream){currentMicStream.getTracks().forEach(t=>t.stop());currentMicStream=null}
+ clearTimeout(voiceRestartTimer);clearTimeout(voiceStartTimeout);clearInterval(micWaveTimer);
+ const old=recognition;recognition=null;
+ if(old)try{old.abort()}catch(e){}
  micUI();setStatus('Voz desactivada');
 }
 function micProblem(code){
  const messages={
- 'not-allowed':'Permiso denegado. En Chrome abre Configuración del sitio → Micrófono → Permitir, luego volvé a entrar.',
- 'service-not-allowed':'El servicio de dictado está bloqueado. Abre esta página en Chrome actualizado y revisa los permisos de voz.',
- 'audio-capture':'El sistema no encuentra el micrófono. Prueba el botón «Comprobar micrófono».',
- 'network':'El dictado de Chrome necesita Internet. Conéctate y volvé a intentar.',
- 'language-not-supported':'El idioma no está disponible. Cambiando a español general.',
- 'no-speech':'No detecté palabras. Puedes seguir hablando o reactivar voz.'};
- return messages[code]||'Reconocimiento detenido: '+code;
+ 'not-allowed':'Chrome bloqueó el permiso de voz. En los ajustes del sitio permite el micrófono y vuelve a abrir la app.',
+ 'service-not-allowed':'El reconocimiento de voz del navegador no está permitido. Abre la app directamente en Chrome, fuera de la vista previa de ChatGPT.',
+ 'audio-capture':'No se detectó acceso al micrófono. Usa «Comprobar micrófono».',
+ 'network':'El servicio de dictado necesita Internet. Verifica la conexión y vuelve a intentarlo.',
+ 'language-not-supported':'El idioma de dictado no está disponible en este navegador.',
+ 'no-speech':'No se detectó voz. Acércate al micrófono y habla más fuerte.'};
+ return messages[code]||'El dictado devolvió el error «'+code+'».';
 }
 function scheduleVoiceRestart(instance){
  if(!restartVoice||recognition!==instance||document.hidden)return;
  clearTimeout(voiceRestartTimer);
  voiceRestartTimer=setTimeout(()=>{
   if(!restartVoice||recognition!==instance||isListening||voiceIsStarting||document.hidden)return;
-  try{voiceIsStarting=true;instance.start();setStatus('Reconectando dictado…');}
-  catch(e){voiceIsStarting=false;restartVoice=false;isListening=false;micUI();setStatus('Hay que reactivar la voz','error');notify('Chrome no pudo reiniciar el dictado. Pulsa «Activar voz» nuevamente.');}
- },950);
+  try{voiceIsStarting=true;instance.start();micUI();setStatus('Volviendo a escuchar…','on');}
+  catch(e){voiceIsStarting=false;restartVoice=false;isListening=false;micUI();setStatus('El dictado se detuvo','error');notify('Chrome interrumpió el dictado. Pulsa «Activar voz» otra vez. Error: '+e.name);}
+ },850);
 }
-async function getMicPermission(){
- if(!navigator.mediaDevices?.getUserMedia)return {ok:false,message:'El navegador no permite acceder al micrófono. Abre la página HTTPS en Google Chrome.'};
- try{
-  const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
-  stream.getTracks().forEach(t=>t.stop());
-  return {ok:true};
- }catch(e){
-  return {ok:false,message:e.name==='NotAllowedError'?'Micrófono bloqueado. Chrome → Ajustes de sitio → Micrófono → Permitir.':e.name==='NotFoundError'?'No se encontró micrófono en este dispositivo.':'No se pudo usar el micrófono: '+e.name};
- }
-}
-async function startMic(){
+function startMic(){
+ // IMPORTANTE: iniciar recognition.start() DIRECTAMENTE dentro del evento de usuario.
+ // Nunca esperar a getUserMedia(), pues en móviles se pierde el gesto del botón.
  if(voiceIsStarting||restartVoice)return;
- if(location.protocol==='file:'||!window.isSecureContext){notify('La voz necesita una dirección HTTPS abierta directamente en Chrome; no funciona de forma confiable en archivos o vistas previas.');setStatus('Necesita Chrome + HTTPS','error');return}
+ if(!window.isSecureContext){
+  setStatus('El navegador bloquea el micrófono','error');
+  notify('La app se abrió en un contexto no seguro. Usa la versión HTTPS en Chrome.');
+  return;
+ }
+ const policy=document.permissionsPolicy||document.featurePolicy;
+ if(policy&&typeof policy.allowsFeature==='function'&&!policy.allowsFeature('microphone')){
+  setStatus('Micrófono bloqueado en esta vista','error');
+  notify('Esta vista previa no permite usar el micrófono. Abre la app como página independiente en Chrome.');
+  return;
+ }
  const Klass=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!Klass){notify('Este navegador no admite dictado continuo de páginas web. Abre el enlace HTTPS en Chrome para Android.');setStatus('Reconocimiento no disponible','error');return}
- voiceIsStarting=true;setStatus('Pidiendo permiso al micrófono…');notify('Si Chrome pregunta si permites usar el micrófono, elige «Permitir».');
- const permitted=await getMicPermission();
- if(!permitted.ok){voiceIsStarting=false;setStatus('No hay permiso de micrófono','error');notify(permitted.message);return}
- const instance=new Klass();recognition=instance;instance.lang='es-CO';instance.continuous=false;instance.interimResults=true;instance.maxAlternatives=1;restartVoice=true;
- instance.onstart=()=>{if(recognition!==instance)return;voiceIsStarting=false;isListening=true;micUI();setStatus('Escuchando · hablá normalmente','on');notify('Estoy escuchando. Veo tu clase debajo del muñeco.');};
- instance.onaudiostart=()=>{if(recognition===instance)setStatus('Micrófono activo · esperando palabras','on')};
+ if(!Klass){
+  setStatus('Reconocimiento no compatible','error');
+  notify('Este navegador no admite SpeechRecognition. Abre la app en Chrome actualizado; el botón «Comprobar micrófono» te dirá si el audio funciona.');
+  return;
+ }
+ const instance=new Klass();recognition=instance;
+ instance.lang='es-CO';instance.continuous=false;instance.interimResults=true;instance.maxAlternatives=1;
+ voiceIsStarting=true;restartVoice=true;
+ instance.onstart=()=>{
+  if(recognition!==instance)return;
+  clearTimeout(voiceStartTimeout);
+  voiceIsStarting=false;isListening=true;micUI();
+  setStatus('Escuchando: di una orden','on');notify('El dictado está activo. Habla normalmente: «mentón al pecho».');
+ };
+ instance.onaudiostart=()=>{if(recognition===instance)setStatus('Audio activado · escuchando','on')};
  instance.onspeechstart=()=>{if(recognition===instance)setStatus('Detectando tu voz…','on')};
  instance.onresult=event=>{
   if(recognition!==instance)return;
   for(let i=event.resultIndex;i<event.results.length;i++){
-   const said=event.results[i][0].transcript.trim();if(!said)continue;
+   const said=event.results[i][0]?.transcript?.trim();if(!said)continue;
    if(event.results[i].isFinal){
     setStatus('Escuché: «'+said+'»','on');
-    const time=Date.now();if(said!==lastRecognized||time-lastRecognitionAt>900){lastRecognized=said;lastRecognitionAt=time;handleSpeech(said)}
-   }else{setStatus('Oyendo: «'+said+'»','on');notify('Reconociendo: «'+said+'»');}
+    const time=Date.now();
+    if(said!==lastRecognized||time-lastRecognitionAt>900){lastRecognized=said;lastRecognitionAt=time;handleSpeech(said)}
+   }else{setStatus('Oyendo: «'+said+'»','on');notify('Reconociendo: «'+said+'»')}
   }
  };
  instance.onerror=e=>{
   if(recognition!==instance)return;
+  clearTimeout(voiceStartTimeout);
   voiceIsStarting=false;
   if(e.error==='aborted')return;
-  if(e.error==='no-speech'){setStatus('Sin palabras; reconectando…','on');return}
-  if(e.error==='language-not-supported'&&instance.lang!=='es-ES'){instance.lang='es-ES';notify('Probando español general…');return}
-  if(['not-allowed','service-not-allowed','audio-capture','network','language-not-supported'].includes(e.error)){
-   restartVoice=false;isListening=false;micUI();setStatus('Error de micrófono / dictado: '+e.error,'error');
+  if(e.error==='no-speech'){
+    setStatus('Sin voz; reiniciando escucha…','on');notify(micProblem(e.error));return;
   }
-  notify(micProblem(e.error));
+  if(e.error==='language-not-supported'&&instance.lang!=='es-ES'){
+    instance.lang='es-ES';setStatus('Probando español general…');notify('Idioma es-CO no disponible. Probando es-ES.');return;
+  }
+  restartVoice=false;isListening=false;micUI();setStatus('Error de voz: '+e.error,'error');notify(micProblem(e.error));
  };
- instance.onend=()=>{if(recognition!==instance)return;voiceIsStarting=false;isListening=false;micUI();if(restartVoice){setStatus('Reconectando voz…');scheduleVoiceRestart(instance)}else setStatus('Voz detenida')};
- try{instance.start();micUI();setStatus('Activando reconocimiento…')}
- catch(e){restartVoice=false;recognition=null;voiceIsStarting=false;micUI();setStatus('No se pudo activar','error');notify('El dictado no arrancó: '+e.message+'. Vuelve a probar con Chrome actualizado.');}
+ instance.onend=()=>{
+  if(recognition!==instance)return;
+  clearTimeout(voiceStartTimeout);
+  voiceIsStarting=false;isListening=false;micUI();
+  if(restartVoice){setStatus('Reconectando escucha…');scheduleVoiceRestart(instance)}
+  else setStatus('Voz detenida');
+ };
+ // Se llama sin un solo await, en el contexto directo del click.
+ try{
+  instance.start();micUI();setStatus('Solicitando acceso a la voz…');
+  notify('Si Chrome pide permiso para usar el micrófono, pulsa «Permitir».');
+  voiceStartTimeout=setTimeout(()=>{
+    if(recognition===instance&&voiceIsStarting){
+      setStatus('Chrome no inició el dictado','error');
+      notify('Pasaron 15 segundos y Chrome no inició. Abre el archivo en Chrome directamente, no en la vista previa de ChatGPT, y revisa los permisos del micrófono.');
+    }
+  },15000);
+ }catch(e){
+  restartVoice=false;recognition=null;voiceIsStarting=false;micUI();
+  setStatus('No se pudo iniciar la voz','error');notify('Error al iniciar SpeechRecognition: '+e.name+' — '+e.message);
+ }
 }
 $('mic-btn').addEventListener('click',()=>{if(isListening||restartVoice||voiceIsStarting)stopMic();else startMic()});
 $('test-mic-btn').addEventListener('click',async()=>{
  stopMic();
- if(!window.isSecureContext||location.protocol==='file:'){setStatus('Necesita HTTPS','error');notify('Prueba desde un enlace HTTPS en Chrome, no abriendo el HTML descargado.');return}
- setStatus('Comprobando permiso…');
- const permitted=await getMicPermission();
- if(permitted.ok){setStatus('Micrófono disponible','on');notify('Permiso de micrófono correcto. Ahora pulsa «Activar voz» y di «siguiente». Si no reconoce palabras, el problema es el servicio de dictado de Chrome.');}
- else{setStatus('Micrófono no disponible','error');notify(permitted.message)}
+ if(!window.isSecureContext){setStatus('Necesita conexión segura','error');notify('El navegador exige abrir la app en un origen seguro.');return}
+ const policy=document.permissionsPolicy||document.featurePolicy;
+ if(policy&&typeof policy.allowsFeature==='function'&&!policy.allowsFeature('microphone')){
+  setStatus('Audio bloqueado por vista previa','error');notify('La vista previa no permite micrófono. Abre la app como página independiente.');return;
+ }
+ if(!navigator.mediaDevices?.getUserMedia){setStatus('Audio no disponible','error');notify('Este navegador no tiene acceso a getUserMedia.');return}
+ setStatus('Pidiendo permiso…');notify('Di «probando» durante unos segundos después de permitir el micrófono.');
+ let stream,ctx;
+ try{
+  stream=await navigator.mediaDevices.getUserMedia({audio:true});
+  ctx=new (window.AudioContext||window.webkitAudioContext)();await ctx.resume();
+  const source=ctx.createMediaStreamSource(stream),analyser=ctx.createAnalyser();analyser.fftSize=1024;source.connect(analyser);
+  const data=new Uint8Array(analyser.fftSize);let peak=0,started=Date.now();
+  setStatus('Micrófono conectado · hablá','on');
+  const measure=()=>{
+   if(!stream||!stream.active)return;
+   analyser.getByteTimeDomainData(data);
+   let sum=0;for(const x of data){const v=(x-128)/128;sum+=v*v}
+   let level=Math.sqrt(sum/data.length);peak=Math.max(peak,level);
+   const percent=Math.max(1,Math.min(100,Math.round(level*400)));
+   setStatus('Audio del micrófono: '+percent+'%','on');
+   if(Date.now()-started<4200)micWaveTimer=setTimeout(measure,100);
+   else{
+    stream.getTracks().forEach(t=>t.stop());stream=null;ctx.close();ctx=null;
+    if(peak>.012){setStatus('El teléfono sí capta tu voz','on');notify('La entrada de audio funciona. Pulsa «Activar voz»: si falla, aparecerá el error específico del dictado.')}
+    else{setStatus('No detecté cambios de volumen','error');notify('Tengo permiso, pero no detecté voz. Revisa el micrófono físico, el volumen o si otra aplicación lo está usando.')}
+   }
+  };measure();
+ }catch(e){
+  if(stream)stream.getTracks().forEach(t=>t.stop());if(ctx)ctx.close();
+  const why=e.name==='NotAllowedError'?'Chrome tiene el micrófono bloqueado: habilítalo en Permisos del sitio.':e.name==='NotFoundError'?'El navegador no encuentra un micrófono.':'Error «'+e.name+'»: '+e.message;
+  setStatus('No se detectó audio','error');notify(why);
+ }
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&recognition){try{recognition.stop()}catch(e){}}else if(restartVoice&&recognition&&!isListening)scheduleVoiceRestart(recognition)});
 window.addEventListener('pagehide',stopMic);
 goTo(step);
-if(location.protocol==='file:'){setStatus('Archivo descargado: voz desactivada','error');notify('Este archivo puede mostrar el muñeco y el guion. Para hablarle, publícalo en HTTPS y ábrelo directamente en Chrome.');}
+
 </script>
 </body></html>
